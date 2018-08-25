@@ -1,0 +1,94 @@
+pipeline {
+	agent any
+
+	parameters {
+		string (name: 'TargetEnv', defaultValue: 'dev', description: 'Target deployment env name (ex dev, uat qa pre)')
+		string (name: 'AppCode', defaultValue: 'ab', description: 'InsuranceSuite Application code (ex ab, bc, cc, pc)')
+		string (name: 'BranchName', defaultValue: 'devops', description: 'Repo branch Name')
+		booleanParam(name: 'promotion', defaultValue: false, description: 'skip build and provide revsion number')
+		string (name: 'zipname', defaultValue: "", description: 'the zip filename to be used in case of promotion')
+		string (name: 'JDBCUrl', defaultValue: "", description: 'provide the JDBC URL')
+		booleanParam (name: 'rereatedb', defaultValue: false, description: 'True if you are recreating database')
+		booleanParam (name: 'zonedata', dafaultValue: false, description: 'Load zonedata flag')
+		booleanParam (name: 'clustered', defaultValue: false, description: 'Ticked in case of deploying cluster.')
+	}
+
+	environment {
+		JOB_NAME = "${params.Appcode} ${params.TargetEnv}"
+		DESCRIPTION = "${params.TargetEnv} depploy for ${params.AppCode}"
+		STATUS_URL = "https://abc.guidewire.com/"
+	}
+
+	stages{
+		stage ('Prepare') {
+			steps{
+				sh 'echo Prepare the scripts for this deployments'
+				//sh "chmod +x $WORKSPACE/pipeline/scripts/*.sh"
+				if (params.promotion){
+					currentBuild.displayName = "#${BUILD_NUMBER} promote ${params.zipname} to ${params.AppCode} ${params.TargetEnv}"
+				}else {
+					currentBuild.displayName = "#${BUILD_NUMBER} build ${params.BranchName} to ${params.AppCode} ${params.TargetEnv}"
+				}
+			}
+
+		}
+		stage('Build') {
+			when {
+				environment name: 'promotion', value: 'false'
+			}
+			steps{
+				sh 'echo Building enviornments if this not promotion.''
+				sh 'echo checking out the branch from git'
+			}
+		}
+		stage('Deploy-Single') {
+			when {
+				expression { retrun clustered ==~ /(?i)(N|NO|F|FALSE|OFF|STOP)/}
+				}
+			steps {
+				sh 'echo Deploying the Non clustered enviornment'
+				// sh "$WORKSPACE/pipeline/script/deploy.sh"
+			}
+		}
+		stage('Deploy-cluster') {
+			when {
+				expression { retrun clustered ==~ /(?i)(Y|YES|T|TRUE|ON|RUN)/}
+			}
+			steps {
+				sh 'echo Deploying the clustered enviornment'
+				// sh "$WORKSPACE/pipeline/script/deploy-cluster.sh"
+			}
+		}
+		stage('Look commit') {
+			when {
+				environment name: 'promotion', value: 'true'
+			}
+			steps {
+				sh 'echo Looking commits'
+			}
+		}
+	}
+	post {
+		failure {
+			script {
+				echo 'something has failed'
+				cleanWs()
+			}
+		}
+		success {
+			script {
+				echo 'Deployment is successfully completed'
+				cleanWs()
+			}
+		}
+		unstable {
+			script {
+				echo 'Build was unstable'
+				cleanWs()
+			}
+		}
+		aborted {
+			cleanWs()
+		}
+	}
+}
