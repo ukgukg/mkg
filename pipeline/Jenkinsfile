@@ -79,7 +79,7 @@ pipeline {
 		}
 		success {
 			script {
-				env.OLDGITCOMMIT=sh(returnStdout: true, script: "echo \"curl sumthing something\"")
+				//env.OLDGITCOMMIT=sh(returnStdout: true, script: "echo \"curl sumthing something\"")
 				echo 'Deployment is successfully completed'
 				//cleanWs()
 			}
