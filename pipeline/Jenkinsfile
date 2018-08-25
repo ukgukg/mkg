@@ -37,7 +37,7 @@ pipeline {
 				environment name: 'promotion', value: 'false'
 			}
 			steps{
-				sh 'echo Building enviornments if this not promotion.''
+				sh 'echo Building enviornments if this not promotion.'
 				sh 'echo checking out the branch from git'
 			}
 		}
