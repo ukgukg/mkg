@@ -74,23 +74,23 @@ pipeline {
 		failure {
 			script {
 				sh 'echo something has failed'
-				cleanWs()
+				#cleanWs()
 			}
 		}
 		success {
 			script {
 				sh 'echo Deployment is successfully completed'
-				cleanWs()
+				#cleanWs()
 			}
 		}
 		unstable {
 			script {
 				sh 'echo Build was unstable'
-				cleanWs()
+				#cleanWs()
 			}
 		}
 		aborted {
-			cleanWs()
+			#cleanWs()
 		}
 	}
 }
