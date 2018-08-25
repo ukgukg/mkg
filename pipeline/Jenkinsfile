@@ -9,7 +9,7 @@ pipeline {
 		string (name: 'zipname', defaultValue: "", description: 'the zip filename to be used in case of promotion')
 		string (name: 'JDBCUrl', defaultValue: "", description: 'provide the JDBC URL')
 		booleanParam (name: 'rereatedb', defaultValue: false, description: 'True if you are recreating database')
-		booleanParam (name: 'zonedata', dafaultValue: false, description: 'Load zonedata flag')
+		booleanParam (name: 'zonedata', defaultValue: false, description: 'Load zonedata flag')
 		booleanParam (name: 'clustered', defaultValue: false, description: 'Ticked in case of deploying cluster.')
 	}
 
