@@ -23,11 +23,13 @@ pipeline {
 		stage ('Prepare') {
 			steps{
 				sh 'echo Prepare the scripts for this deployments'
-				//sh "chmod +x $WORKSPACE/pipeline/scripts/*.sh"
-				if (params.promotion){
-					currentBuild.displayName = "#${BUILD_NUMBER} promote ${params.zipname} to ${params.AppCode} ${params.TargetEnv}"
-				}else {
-					currentBuild.displayName = "#${BUILD_NUMBER} build ${params.BranchName} to ${params.AppCode} ${params.TargetEnv}"
+				sh "chmod +x $WORKSPACE/pipeline/scripts/*.sh"
+			        script {	
+					if (params.promotion){
+						currentBuild.displayName = "#${BUILD_NUMBER} promote ${params.zipname} to ${params.AppCode} ${params.TargetEnv}"
+					}else {
+						currentBuild.displayName = "#${BUILD_NUMBER} build ${params.BranchName} to ${params.AppCode} ${params.TargetEnv}"
+					}	
 				}
 			}
 
