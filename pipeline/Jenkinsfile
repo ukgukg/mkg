@@ -73,19 +73,19 @@ pipeline {
 	post {
 		failure {
 			script {
-				echo 'something has failed'
+				sh 'echo something has failed'
 				cleanWs()
 			}
 		}
 		success {
 			script {
-				echo 'Deployment is successfully completed'
+				sh 'echo Deployment is successfully completed'
 				cleanWs()
 			}
 		}
 		unstable {
 			script {
-				echo 'Build was unstable'
+				sh 'echo Build was unstable'
 				cleanWs()
 			}
 		}
