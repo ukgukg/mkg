@@ -47,7 +47,7 @@ pipeline {
 				}
 			steps {
 				sh 'echo Deploying the Non clustered enviornment'
-				// sh "$WORKSPACE/pipeline/script/deploy.sh"
+				sh "$WORKSPACE/pipeline/scripts/deploy.sh"
 			}
 		}
 		stage('Deploy-cluster') {
@@ -56,7 +56,7 @@ pipeline {
 			}
 			steps {
 				sh 'echo Deploying the clustered enviornment'
-				// sh "$WORKSPACE/pipeline/script/deploy-cluster.sh"
+				sh "$WORKSPACE/pipeline/script/deploy-cluster.sh"
 			}
 		}
 		stage('Look commit') {
