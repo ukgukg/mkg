@@ -73,25 +73,25 @@ pipeline {
 	post {
 		failure {
 			script {
-				sh 'echo something has failed'
+				echo 'something has failed'
 				//cleanWs()
 			}
 		}
 		success {
 			script {
-				sh 'echo Deployment is successfully completed'
+				echo 'Deployment is successfully completed'
 				//cleanWs()
 			}
 		}
 		unstable {
 			script {
-				sh 'echo Build was unstable'
+				echo 'Build was unstable'
 				//cleanWs()
 			}
 		}
 		aborted {
 			script {
-				sh 'echo this build is aborted'
+				echo 'this build is aborted'
 			//cleanWs()
 			}
 		}
