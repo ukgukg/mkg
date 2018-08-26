@@ -80,8 +80,8 @@ pipeline {
 		}
 		success {
 			script {
-				env.OLDGITCOMMIT=sh(returnStdout: true, script: "echo \"curl sumthing something\"")
-                		archiveArtifacts(allowEmptyArchive: true, artifacts:"changelog.txt")
+				//env.OLDGITCOMMIT=sh(returnStdout: true, script: "echo \"curl sumthing something\"")
+                		//archiveArtifacts(allowEmptyArchive: true, artifacts:"changelog.txt")
 				echo 'Deployment is successfully completed'
 				//cleanWs()
 			}
