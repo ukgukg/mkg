@@ -74,7 +74,7 @@ pipeline {
 		failure {
 			script {
 				echo 'something has failed'
-				cleanWs()
+				//cleanWs()
 			}
 		}
 		success {
@@ -87,13 +87,13 @@ pipeline {
 		unstable {
 			script {
 				echo 'Build was unstable'
-				cleanWs()
+				//cleanWs()
 			}
 		}
 		aborted {
 			script {
 				echo 'this build is aborted'
-			cleanWs()
+			//cleanWs()
 			}
 		}
 	}
