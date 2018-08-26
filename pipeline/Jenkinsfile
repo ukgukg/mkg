@@ -75,7 +75,7 @@ pipeline {
 			script {
 				echo 'something has failed'
 				env.IS_PROMOTION="${Params.promotion}"
-				//cleanWs()
+				cleanWs()
 			}
 		}
 		success {
@@ -83,19 +83,19 @@ pipeline {
 				//env.OLDGITCOMMIT=sh(returnStdout: true, script: "echo \"curl sumthing something\"")
                 		//archiveArtifacts(allowEmptyArchive: true, artifacts:"changelog.txt")
 				echo 'Deployment is successfully completed'
-				//cleanWs()
+				cleanWs()
 			}
 		}
 		unstable {
 			script {
 				echo 'Build was unstable'
-				//cleanWs()
+				cleanWs()
 			}
 		}
 		aborted {
 			script {
 				echo 'this build is aborted'
-			//cleanWs()
+			cleanWs()
 			}
 		}
 	}
