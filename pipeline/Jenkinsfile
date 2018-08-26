@@ -16,7 +16,7 @@ pipeline {
 	environment {
 		JOB_NAME = "${params.Appcode} ${params.TargetEnv}"
 		DESCRIPTION = "${params.TargetEnv} depploy for ${params.AppCode}"
-		STATUS_URL = "https://abc.guidewire.com/"
+		//STATUS_URL = "https://abc.guidewire.com/"
 	}
 
 	stages{
@@ -68,7 +68,7 @@ pipeline {
 			steps {
 				script {
 				sh 'echo Looking commits'	
-                    		env.GIT_COMMIT=sh(returnStdout: true, script: "echo curl ${STATUS_URL}/lookupcommit/$zipname").trim()
+                    		//env.GIT_COMMIT=sh(returnStdout: true).trim()
                 		}
 				
 			}
@@ -87,7 +87,7 @@ pipeline {
 				//env.OLDGITCOMMIT=sh(returnStdout: true, script: "echo \"curl sumthing something\"")
                 		//archiveArtifacts(allowEmptyArchive: true, artifacts:"changelog.txt")
 				echo 'Deployment is successfully completed'
-				cleanWs()
+				//cleanWs()
 			}
 		}
 		unstable {
